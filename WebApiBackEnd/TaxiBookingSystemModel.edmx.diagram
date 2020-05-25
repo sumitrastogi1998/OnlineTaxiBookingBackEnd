@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f0f0d2c693e84c97bfa1e5553fdff752" Name="Diagram1">
+        <EntityTypeShape EntityType="taxi_booking_systemModel.Booking" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.Employee" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.Taxi" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.User" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="taxi_booking_systemModel.FK__Booking__custome__3B40CD36" ManuallyRouted="false" />
+        <AssociationConnector Association="taxi_booking_systemModel.FK__Booking__employe__3A4CA8FD" ManuallyRouted="false" />
+        <AssociationConnector Association="taxi_booking_systemModel.FK__Taxi__TaxiOwnerI__37703C52" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.log" Width="1.5" PointX="5.375" PointY="5.75" />
+        <AssociationConnector Association="taxi_booking_systemModel.FK__logs__eId__671F4F74" />
+        <EntityTypeShape EntityType="taxi_booking_systemModel.EmployeeRoster" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="taxi_booking_systemModel.FK__EmployeeR__emplo__756D6ECB" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

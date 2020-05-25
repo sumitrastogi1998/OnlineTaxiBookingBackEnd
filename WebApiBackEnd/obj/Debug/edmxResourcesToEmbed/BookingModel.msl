@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="taxi_booking_systemModel3StoreContainer" CdmEntityContainer="taxi_booking_systemEntities4">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel3.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="BookTime" ColumnName="BookTime" />
+          <ScalarProperty Name="DropTime" ColumnName="DropTime" />
+          <ScalarProperty Name="PickupPoint" ColumnName="PickupPoint" />
+          <ScalarProperty Name="DropPoint" ColumnName="DropPoint" />
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

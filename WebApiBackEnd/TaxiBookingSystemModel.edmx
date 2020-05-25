@@ -1,0 +1,482 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="taxi_booking_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="BookTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="DropTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="PickupPoint" Type="varchar" MaxLength="255" />
+          <Property Name="DropPoint" Type="varchar" MaxLength="255" />
+          <Property Name="FeedBack" Type="nvarchar(max)" />
+          <Property Name="Fare" Type="int" />
+          <Property Name="employeeId" Type="int" />
+          <Property Name="customerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerPassword" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LicenseNumber" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Available" Type="bit" />
+        </EntityType>
+        <EntityType Name="EmployeeRoster">
+          <Key>
+            <PropertyRef Name="RosterID" />
+          </Key>
+          <Property Name="RosterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="InTime" Type="time" Precision="7" />
+          <Property Name="OutTime" Type="time" Precision="7" />
+          <Property Name="employeeId" Type="int" />
+        </EntityType>
+        <EntityType Name="logs">
+          <Key>
+            <PropertyRef Name="custId" />
+          </Key>
+          <Property Name="custId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="custName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="source" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="destination" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fromdate" Type="date" Nullable="false" />
+          <Property Name="todate" Type="date" Nullable="false" />
+          <Property Name="totalfare" Type="money" Nullable="false" />
+          <Property Name="rating" Type="int" Nullable="false" />
+          <Property Name="eId" Type="int" />
+        </EntityType>
+        <EntityType Name="Taxi">
+          <Key>
+            <PropertyRef Name="TaxiID" />
+          </Key>
+          <Property Name="TaxiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaxiNumber" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TaxiModel" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TaxiOwnerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserRole" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking__custome__59C55456">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__employe__58D1301D">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="employeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeR__emplo__756D6ECB">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="EmployeeRoster" Type="Self.EmployeeRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeRoster">
+              <PropertyRef Name="employeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__logs__eId__671F4F74">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="logs" Type="Self.logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="logs">
+              <PropertyRef Name="eId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taxi__TaxiOwnerI__55F4C372">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Taxi" Type="Self.Taxi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Taxi">
+              <PropertyRef Name="TaxiOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="taxi_booking_systemModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeRoster" EntityType="Self.EmployeeRoster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="logs" EntityType="Self.logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taxi" EntityType="Self.Taxi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Booking__custome__59C55456" Association="Self.FK__Booking__custome__59C55456">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__employe__58D1301D" Association="Self.FK__Booking__employe__58D1301D">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeR__emplo__756D6ECB" Association="Self.FK__EmployeeR__emplo__756D6ECB">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeRoster" EntitySet="EmployeeRoster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__logs__eId__671F4F74" Association="Self.FK__logs__eId__671F4F74">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="logs" EntitySet="logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taxi__TaxiOwnerI__55F4C372" Association="Self.FK__Taxi__TaxiOwnerI__55F4C372">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Taxi" EntitySet="Taxi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="taxi_booking_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BookTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="DropTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="PickupPoint" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DropPoint" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FeedBack" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fare" Type="Int32" />
+          <Property Name="employeeId" Type="Int32" />
+          <Property Name="customerId" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Booking__custome__3B40CD36" FromRole="Booking" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Booking__employe__3A4CA8FD" FromRole="Booking" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__custome__3B40CD36" FromRole="Customer" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LicenseNumber" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Available" Type="Boolean" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__employe__3A4CA8FD" FromRole="Employee" ToRole="Booking" />
+          <NavigationProperty Name="Taxis" Relationship="Self.FK__Taxi__TaxiOwnerI__37703C52" FromRole="Employee" ToRole="Taxi" />
+          <NavigationProperty Name="logs" Relationship="taxi_booking_systemModel.FK__logs__eId__671F4F74" FromRole="Employee" ToRole="log" />
+          <NavigationProperty Name="EmployeeRosters" Relationship="taxi_booking_systemModel.FK__EmployeeR__emplo__756D6ECB" FromRole="Employee" ToRole="EmployeeRoster" />
+        </EntityType>
+        <EntityType Name="Taxi">
+          <Key>
+            <PropertyRef Name="TaxiID" />
+          </Key>
+          <Property Name="TaxiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaxiNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxiModel" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxiOwnerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Taxi__TaxiOwnerI__37703C52" FromRole="Taxi" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRole" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Booking__custome__3B40CD36">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__employe__3A4CA8FD">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="employeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Taxi__TaxiOwnerI__37703C52">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Taxi" Type="Self.Taxi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Taxi">
+              <PropertyRef Name="TaxiOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="taxi_booking_systemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Taxis" EntityType="Self.Taxi" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Booking__custome__3B40CD36" Association="Self.FK__Booking__custome__3B40CD36">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__employe__3A4CA8FD" Association="Self.FK__Booking__employe__3A4CA8FD">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Taxi__TaxiOwnerI__37703C52" Association="Self.FK__Taxi__TaxiOwnerI__37703C52">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Taxi" EntitySet="Taxis" />
+          </AssociationSet>
+          <EntitySet Name="logs" EntityType="taxi_booking_systemModel.log" />
+          <AssociationSet Name="FK__logs__eId__671F4F74" Association="taxi_booking_systemModel.FK__logs__eId__671F4F74">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="log" EntitySet="logs" />
+          </AssociationSet>
+          <EntitySet Name="EmployeeRosters" EntityType="taxi_booking_systemModel.EmployeeRoster" />
+          <AssociationSet Name="FK__EmployeeR__emplo__756D6ECB" Association="taxi_booking_systemModel.FK__EmployeeR__emplo__756D6ECB">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EmployeeRoster" EntitySet="EmployeeRosters" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="log">
+          <Key>
+            <PropertyRef Name="custId" />
+          </Key>
+          <Property Name="custId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="custName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="source" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="destination" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fromdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="todate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="totalfare" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="rating" Type="Int32" Nullable="false" />
+          <Property Name="eId" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="taxi_booking_systemModel.FK__logs__eId__671F4F74" FromRole="log" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK__logs__eId__671F4F74">
+          <End Type="taxi_booking_systemModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="taxi_booking_systemModel.log" Role="log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="log">
+              <PropertyRef Name="eId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EmployeeRoster">
+          <Key>
+            <PropertyRef Name="RosterID" />
+          </Key>
+          <Property Name="RosterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="InTime" Type="Time" Precision="7" />
+          <Property Name="OutTime" Type="Time" Precision="7" />
+          <Property Name="employeeId" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="taxi_booking_systemModel.FK__EmployeeR__emplo__756D6ECB" FromRole="EmployeeRoster" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK__EmployeeR__emplo__756D6ECB">
+          <End Type="taxi_booking_systemModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="taxi_booking_systemModel.EmployeeRoster" Role="EmployeeRoster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeRoster">
+              <PropertyRef Name="employeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="taxi_booking_systemModelStoreContainer" CdmEntityContainer="taxi_booking_systemEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="BookTime" ColumnName="BookTime" />
+                <ScalarProperty Name="DropTime" ColumnName="DropTime" />
+                <ScalarProperty Name="PickupPoint" ColumnName="PickupPoint" />
+                <ScalarProperty Name="DropPoint" ColumnName="DropPoint" />
+                <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+                <ScalarProperty Name="Fare" ColumnName="Fare" />
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerPassword" ColumnName="CustomerPassword" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Available" ColumnName="Available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxis">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.Taxi">
+              <MappingFragment StoreEntitySet="Taxi">
+                <ScalarProperty Name="TaxiID" ColumnName="TaxiID" />
+                <ScalarProperty Name="TaxiNumber" ColumnName="TaxiNumber" />
+                <ScalarProperty Name="TaxiModel" ColumnName="TaxiModel" />
+                <ScalarProperty Name="TaxiOwnerId" ColumnName="TaxiOwnerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="logs">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.log">
+              <MappingFragment StoreEntitySet="logs">
+                <ScalarProperty Name="eId" ColumnName="eId" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="totalfare" ColumnName="totalfare" />
+                <ScalarProperty Name="todate" ColumnName="todate" />
+                <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="custName" ColumnName="custName" />
+                <ScalarProperty Name="custId" ColumnName="custId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeRosters">
+            <EntityTypeMapping TypeName="taxi_booking_systemModel.EmployeeRoster">
+              <MappingFragment StoreEntitySet="EmployeeRoster">
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="OutTime" ColumnName="OutTime" />
+                <ScalarProperty Name="InTime" ColumnName="InTime" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="RosterID" ColumnName="RosterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

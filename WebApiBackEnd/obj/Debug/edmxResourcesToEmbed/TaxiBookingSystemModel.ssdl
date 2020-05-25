@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="taxi_booking_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromDate" Type="date" Nullable="false" />
+    <Property Name="ToDate" Type="date" Nullable="false" />
+    <Property Name="BookTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="DropTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="PickupPoint" Type="varchar" MaxLength="255" />
+    <Property Name="DropPoint" Type="varchar" MaxLength="255" />
+    <Property Name="FeedBack" Type="nvarchar(max)" />
+    <Property Name="Fare" Type="int" />
+    <Property Name="employeeId" Type="int" />
+    <Property Name="customerId" Type="int" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerPassword" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="MobileNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="LicenseNumber" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Available" Type="bit" />
+  </EntityType>
+  <EntityType Name="EmployeeRoster">
+    <Key>
+      <PropertyRef Name="RosterID" />
+    </Key>
+    <Property Name="RosterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FromDate" Type="date" />
+    <Property Name="ToDate" Type="date" />
+    <Property Name="InTime" Type="time" Precision="7" />
+    <Property Name="OutTime" Type="time" Precision="7" />
+    <Property Name="employeeId" Type="int" />
+  </EntityType>
+  <EntityType Name="logs">
+    <Key>
+      <PropertyRef Name="custId" />
+    </Key>
+    <Property Name="custId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="custName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="source" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="destination" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fromdate" Type="date" Nullable="false" />
+    <Property Name="todate" Type="date" Nullable="false" />
+    <Property Name="totalfare" Type="money" Nullable="false" />
+    <Property Name="rating" Type="int" Nullable="false" />
+    <Property Name="eId" Type="int" />
+  </EntityType>
+  <EntityType Name="Taxi">
+    <Key>
+      <PropertyRef Name="TaxiID" />
+    </Key>
+    <Property Name="TaxiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaxiNumber" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TaxiModel" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="TaxiOwnerId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="UserRole" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Booking__custome__59C55456">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="customerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Booking__employe__58D1301D">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="employeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmployeeR__emplo__756D6ECB">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="EmployeeRoster" Type="Self.EmployeeRoster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EmployeeRoster">
+        <PropertyRef Name="employeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__logs__eId__671F4F74">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="logs" Type="Self.logs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="logs">
+        <PropertyRef Name="eId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Taxi__TaxiOwnerI__55F4C372">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Taxi" Type="Self.Taxi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Taxi">
+        <PropertyRef Name="TaxiOwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="taxi_booking_systemModelStoreContainer">
+    <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeRoster" EntityType="Self.EmployeeRoster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="logs" EntityType="Self.logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Taxi" EntityType="Self.Taxi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Booking__custome__59C55456" Association="Self.FK__Booking__custome__59C55456">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Booking__employe__58D1301D" Association="Self.FK__Booking__employe__58D1301D">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Booking" EntitySet="Booking" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmployeeR__emplo__756D6ECB" Association="Self.FK__EmployeeR__emplo__756D6ECB">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="EmployeeRoster" EntitySet="EmployeeRoster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__logs__eId__671F4F74" Association="Self.FK__logs__eId__671F4F74">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="logs" EntitySet="logs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Taxi__TaxiOwnerI__55F4C372" Association="Self.FK__Taxi__TaxiOwnerI__55F4C372">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Taxi" EntitySet="Taxi" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

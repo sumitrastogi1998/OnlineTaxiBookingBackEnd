@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="taxi_booking_systemModelStoreContainer" CdmEntityContainer="taxi_booking_systemEntities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.Booking">
+        <MappingFragment StoreEntitySet="Booking">
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="BookTime" ColumnName="BookTime" />
+          <ScalarProperty Name="DropTime" ColumnName="DropTime" />
+          <ScalarProperty Name="PickupPoint" ColumnName="PickupPoint" />
+          <ScalarProperty Name="DropPoint" ColumnName="DropPoint" />
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+          <ScalarProperty Name="Fare" ColumnName="Fare" />
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="CustomerPassword" ColumnName="CustomerPassword" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Taxis">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.Taxi">
+        <MappingFragment StoreEntitySet="Taxi">
+          <ScalarProperty Name="TaxiID" ColumnName="TaxiID" />
+          <ScalarProperty Name="TaxiNumber" ColumnName="TaxiNumber" />
+          <ScalarProperty Name="TaxiModel" ColumnName="TaxiModel" />
+          <ScalarProperty Name="TaxiOwnerId" ColumnName="TaxiOwnerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="logs">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.log">
+        <MappingFragment StoreEntitySet="logs">
+          <ScalarProperty Name="eId" ColumnName="eId" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="totalfare" ColumnName="totalfare" />
+          <ScalarProperty Name="todate" ColumnName="todate" />
+          <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+          <ScalarProperty Name="destination" ColumnName="destination" />
+          <ScalarProperty Name="source" ColumnName="source" />
+          <ScalarProperty Name="custName" ColumnName="custName" />
+          <ScalarProperty Name="custId" ColumnName="custId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeRosters">
+      <EntityTypeMapping TypeName="taxi_booking_systemModel.EmployeeRoster">
+        <MappingFragment StoreEntitySet="EmployeeRoster">
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="OutTime" ColumnName="OutTime" />
+          <ScalarProperty Name="InTime" ColumnName="InTime" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="RosterID" ColumnName="RosterID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
